@@ -2,7 +2,7 @@ import sys
 
 
 conf_path = 'C:/python/tasks/task5/conf.ini'
-#Считываем файл conf.ini и обрабатываем исключения
+# Пишем функцию, которая считывает файл conf.ini и обрабатывает исключения
 def  _read_conf():
     try:
         with open(conf_path) as f:
@@ -12,6 +12,7 @@ def  _read_conf():
         sys.exit()
     return lines
 
-a = _read_conf()
-print(a)
+# Вызываем нашу функцию и выводит результат
+result_read_conf = _read_conf()
+print(result_read_conf)
 

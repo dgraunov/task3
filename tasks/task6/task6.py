@@ -5,5 +5,7 @@ def  _read_conf():
         data_dict = {}
         for line in f:
             k, v = line.strip().split('=')
-            data_dict[k.strip()] = v.strip()
+            if k != '' and v != '':
+                data_dict[k.strip()] = v.strip()
     return data_dict
+

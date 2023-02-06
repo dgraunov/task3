@@ -12,7 +12,7 @@ def  _read_conf():
         sys.exit()
     return lines
 
-# Вызываем нашу функцию и выводит результат
+# Вызываем нашу функцию и выводим результат
 result_read_conf = _read_conf()
 print(result_read_conf)
 

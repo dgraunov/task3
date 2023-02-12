@@ -1,6 +1,7 @@
 #Импортируем наш модуль с функциями
 import tools
 import sys
+import re
 
 conf_path = 'C:/python/tasks/task8/conf.ini'
 
@@ -28,14 +29,19 @@ if action == 'log':
 
 elif action == 'reg':
     # Запросить у пользователя ввод входных параметров
-    user_name, user_passw = input('Введите login: '), input('Введите password: ')
-
-    # Если на вход ничего не передали напечатать ошибку
-    if user_name == '' or user_passw == '':
-        print('Логин и пароль не может быть пустой строкой')
+    user_name = input('Введите login: ')
+    result_check_name = tools.check_user_name(user_name)
+    if result_check_name == False:
+        print('Имя пользователя должно содержать только буквы и цифры')
         sys.exit()
 
-    reg_result = tools.reg_user(user_name, user_passw)
+    user_passw = input('Введите password: ')
+    result_check_passw = tools.check_user_passw(user_passw)
+    if result_check_passw == False:
+        sys.exit()
+    else:
+        reg_result = tools.reg_user(user_name, user_passw)
+        print('Поздравляю! Вы успешно зарегистрированы!')
 
 
 else:

@@ -1,6 +1,6 @@
 import re
 
-conf_path = 'C:/python/tasks/task9/conf.ini'
+conf_path = 'C:/python/tasks/conf.ini'
 
 RC_OK = 0
 RC_ERROR = -1

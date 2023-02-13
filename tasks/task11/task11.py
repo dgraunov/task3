@@ -24,7 +24,6 @@ if action == 'log':
     if login_result == RC_OK:
         print('Добро пожаловать,', user_name)
     else:
-
         print('Давай досвидания')
 
 elif action == 'reg':

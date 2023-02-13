@@ -48,7 +48,7 @@ elif action == 'del':
     result_del = tools.del_user(user_name)
 
 else:
-    print('Ошибка! Введите reg или log')
+    print('Ошибка! Введите reg, log или del')
     sys.exit()
 
 

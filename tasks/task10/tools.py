@@ -7,11 +7,16 @@ RC_OK = 0
 RC_ERROR = -1
 
 def  read_conf():
-    with open(conf_path) as f:
-        data_dict = {}
-        for line in f:
-            k, v = line.strip().split('=')
-            data_dict[k.strip()] = v.strip()
+    try:
+        with open(conf_path) as f:
+            data_dict = {}
+            for line in f:
+                k, v = line.strip().split('=')
+                data_dict[k.strip()] = v.strip()
+    except Exception as f:
+        print(f)
+        sys.exit()
+
     return data_dict
 
 

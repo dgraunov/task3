@@ -60,7 +60,7 @@ elif action == 'change_passwd':
             else:
                 print('Ошибка при смене пароля')
     else:
-        print('Пользователь с таким именем не найден')
+        print('Пользователь с таким именем не найден ')
         sys.exit()
 
 else:

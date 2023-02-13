@@ -38,11 +38,17 @@ def reg_user(user_name, user_passw):
 
 
 def rewrite_config(users_list):
-    file = open(conf_path,'w')
-    for key, value in users_list.items():
-        data = key + '=' + value +'\n'
-        file.write(data)
-    file.close()
+    try:
+        file = open(conf_path,'w')
+        for key, value in users_list.items():
+            data = key + '=' + value +'\n'
+            file.write(data)
+        file.close()
+        return True
+    except Exception as f:
+        print(f)
+        return False
+
 
 def check_user_name(user_name):
     pattern = r'^[a-zA-Z][a-zA-Z0-9_-]*[a-zA-Z0-9]$'
@@ -81,12 +87,14 @@ def del_user(user_name):
 
 def change_passwd(user_name, user_passw):
     users_list = read_conf()
-    if user_name not in users_list:
-        print('Пользователь с таким именем не найден')
-    else:
+    res_change_passwd = False
+    if user_name in users_list:
         users_list[user_name] = user_passw
         res_change_passwd = rewrite_config(users_list)
-        print('Пароль успешно изменен')
+
+    return res_change_passwd
+
+
 
 
 

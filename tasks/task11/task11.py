@@ -55,6 +55,10 @@ elif action == 'change_passwd':
         check_passw = tools.check_user_passw(user_passw)
         if check_passw == True:
             res_change_passw = tools.change_passwd(user_name, user_passw)
+            if res_change_passw == True:
+                print('Пароль успешно изменен')
+            else:
+                print('Ошибка при смене пароля')
     else:
         print('Пользователь с таким именем не найден')
         sys.exit()

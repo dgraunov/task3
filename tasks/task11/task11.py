@@ -1,6 +1,7 @@
 #Импортируем наш модуль с функциями
-import tools
 import sys
+sys.path.insert(0, 'C:/python/tasks/lib')
+import tools
 import re
 
 conf_path = 'C:/python/tasks/conf.ini'

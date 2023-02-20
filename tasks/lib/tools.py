@@ -1,5 +1,10 @@
 import re
 import sys
+sys.path.insert(0, 'C:/python/tasks/database')
+sys.path.insert(0, 'C:/python/tasks/database/users.db')
+import db
+import sqlite3
+
 
 conf_path = 'C:/python/tasks/conf.ini'
 
@@ -20,20 +25,25 @@ def  read_conf():
 
 
 def login(user_name, user_passw):
-    users_prms = read_conf()
-    if user_name in users_prms and user_passw == users_prms[user_name]:
+    db.cursor.execute('SELECT * FROM users WHERE login = ?', (user_name,))
+    result = db.cursor.fetchone()
+    if result != None:
         return RC_OK
     else:
         return RC_ERROR
 
 def reg_user(user_name, user_passw):
-    users_list = read_conf()
-    if user_name in users_list:
+    db.cursor.execute('SELECT * FROM users WHERE login = ?', (user_name,))
+    result = db.cursor.fetchone()
+    if result != None:
         print('Пользователь с таким логином уже зарегистрирован')
         sys.exit()
     else:
-        users_list[user_name] = user_passw
-        return users_list
+        sql = 'insert into users(login, password) values(?,?)'
+        bind_values = (user_name, user_passw)
+        db.cursor.execute(sql, bind_values)
+        db.conn.commit()
+    return db.conn.total_changes
 
 
 def rewrite_config(users_list):

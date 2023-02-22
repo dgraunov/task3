@@ -39,12 +39,12 @@ elif action == 'reg':
         sys.exit()
 
     result_check_passw = tools.check_user_passw(user_passw)
-    if result_check_passw == False:
-        sys.exit()
-    else:
+    if result_check_passw == True:
         reg_result = tools.reg_user(user_name, user_passw)
         res_rewrite = tools.rewrite_config(reg_result)
         print('Поздравляю! Вы успешно зарегистрированы!')
+    else:
+        sys.exit()
 
 elif action == 'del':
     user_name = input('Введите имя пользователя, которого надо удалить: ')

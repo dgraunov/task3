@@ -1,7 +1,6 @@
 import re
 import sys
 sys.path.insert(0, 'C:/python/tasks/database')
-sys.path.insert(0, 'C:/python/tasks/database/users.db')
 import db
 import sqlite3
 

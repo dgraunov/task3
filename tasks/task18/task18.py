@@ -2,7 +2,6 @@
 import sys
 sys.path.insert(0, 'C:/python/tasks/lib')
 sys.path.insert(0, 'C:/python/tasks/database')
-sys.path.insert(0, 'C:/python/tasks/database/users.db')
 import tools
 import db
 import re

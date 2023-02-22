@@ -38,24 +38,14 @@ def reg_user(user_name, user_passw):
         print('Пользователь с таким логином уже зарегистрирован')
         sys.exit()
     else:
-        sql = 'insert into users(login, password) values(?,?)'
+        sql = 'INSERT INTO users(login, password) values(?,?)'
         bind_values = (user_name, user_passw)
         db.cursor.execute(sql, bind_values)
         db.conn.commit()
-    return db.conn.total_changes
-
-
-def rewrite_config(users_list):
-    try:
-        file = open(conf_path,'w')
-        for key, value in users_list.items():
-            data = key + '=' + value +'\n'
-            file.write(data)
-        file.close()
-        return True
-    except Exception as f:
-        print(f)
-        return False
+    if db.conn.total_changes:
+        return RC_OK
+    else:
+        return RC_ERROR
 
 
 def check_user_name(user_name):
@@ -64,6 +54,7 @@ def check_user_name(user_name):
         return True
     else:
         return False
+
 
 def check_user_passw(user_passw):
     val = True
@@ -85,22 +76,25 @@ def check_user_passw(user_passw):
     return val
 
 def del_user(user_name):
-    users_list = read_conf()
-    if user_name not in users_list:
-        print('Пользователь с таким именем не найден')
+    db.cursor.execute('SELECT * FROM users WHERE login = ?', (user_name,))
+    result = db.cursor.fetchone()
+    if result == None:
+        return RC_ERROR
     else:
-        del users_list[user_name]
-        res_del = rewrite_config(users_list)
-        print(f'Пользователь {user_name} удален')
+        db.cursor.execute('DELETE FROM users WHERE login = ?', (user_name,))
+        db.conn.commit()
+        return RC_OK
+
+
 
 def change_passwd(user_name, user_passw):
-    users_list = read_conf()
-    res_change_passwd = False
-    if user_name in users_list:
-        users_list[user_name] = user_passw
-        res_change_passwd = rewrite_config(users_list)
+    db.cursor.execute('UPDATE users SET password = ? WHERE login = ?', (user_passw, user_name))
+    db.conn.commit()
+    if db.conn.total_changes:
+        return RC_OK
+    else:
+        return RC_ERROR
 
-    return res_change_passwd
 
 
 

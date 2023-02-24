@@ -3,6 +3,7 @@ import sys
 sys.path.insert(0, 'C:/python/tasks/database')
 import db
 import sqlite3
+import hashlib
 
 
 conf_path = 'C:/python/tasks/conf.ini'
@@ -24,7 +25,8 @@ def  read_conf():
 
 
 def login(user_name, user_passw):
-    db.cursor.execute('SELECT * FROM users WHERE login = ?', (user_name,))
+    user_passw = get_sha1_hash(user_passw)
+    db.cursor.execute('SELECT * FROM users WHERE login = ? AND password = ?', (user_name, user_passw))
     result = db.cursor.fetchone()
     if result != None:
         return RC_OK
@@ -88,12 +90,18 @@ def del_user(user_name):
 
 
 def change_passwd(user_name, user_passw):
+    user_passw = get_sha1_hash(user_passw)
     db.cursor.execute('UPDATE users SET password = ? WHERE login = ?', (user_passw, user_name))
     db.conn.commit()
     if db.conn.total_changes:
         return RC_OK
     else:
         return RC_ERROR
+
+def get_sha1_hash(user_passw):
+    hash_object = hashlib.sha1(user_passw.encode())
+    hex_dig = hash_object.hexdigest()
+    return hex_dig
 
 
 

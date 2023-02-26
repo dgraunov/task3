@@ -25,8 +25,8 @@ def  read_conf():
 
 
 def login(user_name, user_passw):
-    user_passw = get_sha1_hash(user_passw)
-    db.cursor.execute('SELECT * FROM users WHERE login = ? AND password = ?', (user_name, user_passw))
+    hash_passw = get_sha1_hash(user_passw)
+    db.cursor.execute('SELECT * FROM users WHERE login = ? AND password = ?', (user_name, hash_passw))
     result = db.cursor.fetchone()
     if result != None:
         return RC_OK

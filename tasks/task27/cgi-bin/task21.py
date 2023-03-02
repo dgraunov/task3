@@ -44,19 +44,23 @@ elif action == 'reg':
     if result_check_name == False:
         print('Имя пользователя должно содержать только буквы и цифры')
         sys.exit()
+
     if passw == passw2:
-        result_check_passw = tools.check_user_passw(user_passw)
-    else: print('Пароли не совпадают')
+        pass
+    else:
+        print('Пароли не совпадают')
+        sys.exit()
+
+    result_check_passw = tools.check_user_passw(user_passw)
     if result_check_passw == True:
-        user_passw = tools.get_sha1_hash(user_passw)
-        reg_result = tools.reg_user(user_name, user_passw)
+        hash_user_passw = tools.get_sha1_hash(user_passw)
+        reg_result = tools.reg_user(user_name, hash_user_passw)
         if reg_result == RC_OK:
             print('Поздравляю! Вы успешно зарегистрированы!')
         else:
             print('Что то пошло не так')
     else:
         sys.exit()
-
 
 elif action == 'del':
     user_name = input('Введите имя пользователя, которого надо удалить: ')

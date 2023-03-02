@@ -4,6 +4,8 @@ sys.path.insert(0, 'C:/python/tasks/database')
 import db
 import sqlite3
 import hashlib
+import random
+import string
 
 
 conf_path = 'C:/python/tasks/conf.ini'
@@ -104,6 +106,20 @@ def get_sha1_hash(user_passw):
     return hex_dig
 
 
+def create_passwd(length):
+    password = random.choice(string.ascii_uppercase)
+    for i in range(length):
+        char_type = random.randint(0, 3)
+
+        if char_type == 0:
+            password += random.choice(string.ascii_lowercase)
+        elif char_type == 1:
+            password += random.choice(string.ascii_uppercase)
+        elif char_type == 2:
+            password += random.choice(string.digits)
+        else:
+            password += random.choice(string.punctuation)
+    return password
 
 
 
